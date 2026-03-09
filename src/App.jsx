@@ -4,7 +4,19 @@ import './App.css'
 function App() {
   const [flashcardNo, setNo] = useState(0)
   const [flipped, setFlipTracker] = useState(false)
-  const total = 10;
+  const cards = [
+  { prompt: "Match a single 0 or 1",                                          answer: /[01]/          },
+  { prompt: "Match any string of 0s and 1s",                                  answer: /[01]*/         },
+  { prompt: "Match a string that starts with 1",                               answer: /^1[01]*/       },
+  { prompt: "Match a string that ends with 0",                                 answer: /[01]*0$/       },
+  { prompt: "Match a string with at least three characters",                   answer: /[01]{3,}/      },
+  { prompt: "Match a string that starts and ends with 1",                      answer: /^1[01]*1$/     },
+  { prompt: "Match a string containing '00'",                                  answer: /[01]*00[01]*/  },
+  { prompt: "Match a string where every 0 is followed by a 1",                answer: /^(1|01)*$/     },
+  { prompt: "Match a string that doesn't contain '11'",                       answer: /^(0|10)*1?$/   },
+  { prompt: "Match a string with an even number of 1s",                       answer: /^(0*10*1)*0*$/ },
+  ]
+  const total = cards.length - 1;
 
   const flipcard = () => setFlipTracker(!flipped) 
   const nextcard = () => {
@@ -25,18 +37,7 @@ function App() {
     setFlipTracker(false)
   }
 
-  const cards = [
-  { prompt: "Match a single 0 or 1",                                          answer: /[01]/          },
-  { prompt: "Match any string of 0s and 1s",                                  answer: /[01]*/         },
-  { prompt: "Match a string that starts with 1",                               answer: /^1[01]*/       },
-  { prompt: "Match a string that ends with 0",                                 answer: /[01]*0$/       },
-  { prompt: "Match a string with at least three characters",                   answer: /[01]{3,}/      },
-  { prompt: "Match a string that starts and ends with 1",                      answer: /^1[01]*1$/     },
-  { prompt: "Match a string containing '00'",                                  answer: /[01]*00[01]*/  },
-  { prompt: "Match a string where every 0 is followed by a 1",                answer: /^(1|01)*$/     },
-  { prompt: "Match a string that doesn't contain '11'",                       answer: /^(0|10)*1?$/   },
-  { prompt: "Match a string with an even number of 1s",                       answer: /^(0*10*1)*0*$/ },
-  ]
+
 
   return (
     <div className='App'>
