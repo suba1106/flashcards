@@ -5,38 +5,107 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.flashcards {
+  width: 600px;
+  height: 300px;
+  border-radius: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.flashcards:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.card {
-  padding: 2em;
+#easy {
+  background-color: rgba(39, 174, 96, 0.35);
+  border: 1px solid rgba(39, 174, 96, 0.6);
+  box-shadow: 0 4px 20px rgba(39, 174, 96, 0.2);
 }
 
-.read-the-docs {
-  color: #888;
+#medium {
+  background-color: rgba(243, 156, 18, 0.35);
+  border: 1px solid rgba(243, 156, 18, 0.6);
+  box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2);
+}
+
+#hard {
+  background-color: rgba(231, 76, 60, 0.35);
+  border: 1px solid rgba(231, 76, 60, 0.6);
+  box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #6174d1;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1.4em;
+  font-weight: 800;
+  font-family: inherit;
+  background-color: #674580;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  gap: 1rem;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.buttonBar{
+  display: flex;
+  gap: 1rem;
+}
+
+p{
+  font-size: 2.2rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
