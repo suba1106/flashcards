@@ -4,6 +4,9 @@ import './App.css'
 function App() {
   const [flashcardNo, setNo] = useState(0)
   const [flipped, setFlipTracker] = useState(false)
+  const [guess, setGuess] = useState('')
+  const [feedback, setFeedback] = useState(null) 
+
   const cards = [
     { prompt: "Match a single 0 or 1",                                          answer: /[01]/,           difficulty: "easy"   },
     { prompt: "Match a string with an even number of 1s",                       answer: /^(0*10*1)*0*$/,  difficulty: "hard"   },
@@ -29,40 +32,109 @@ function App() {
 
   const total = cards.length - 1;
 
-  const flipcard = () => setFlipTracker(!flipped) 
+const normalizeRegex = (str) => {
+    // Strip leading/trailing slashes and any trailing flags
+    return str.trim().replace(/^\/|\/[gimsuy]*$/g, '')
+  }
+ 
+  const handleSubmit = () => {
+    const correctAnswer = cards[flashcardNo].answer.toString()
+    const normalizedCorrect = normalizeRegex(correctAnswer)
+    const normalizedGuess = normalizeRegex(guess)
+ 
+    if (normalizedGuess === normalizedCorrect) {
+      setFeedback('correct')
+      setFlipTracker(true)
+    } else {
+      setFeedback('incorrect')
+    }
+  }
+ 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSubmit()
+  }
+ 
   const nextcard = () => {
-    if(flashcardNo == total){
-      setNo(0);
-    }else{
-      setNo(flashcardNo+1);
+    if (flashcardNo < total) {
+      setNo(flashcardNo + 1)
+      setFlipTracker(false)
+      setGuess('')
+      setFeedback(null)
     }
-    setFlipTracker(false);
   }
-
-  const backCard = () =>{
-    if(flashcardNo == 0){
-      setNo(total);
-    }else{
-      setNo(flashcardNo-1);
+ 
+  const backCard = () => {
+    if (flashcardNo > 0) {
+      setNo(flashcardNo - 1)
+      setFlipTracker(false)
+      setGuess('')
+      setFeedback(null)
     }
-    setFlipTracker(false)
   }
+ 
+  const handleCardClick = () => {
+    setFlipTracker(!flipped)
+    setFeedback(null)
+  }
+ 
+  const isFirst = flashcardNo === 0
+  const isLast = flashcardNo === total
 
 
 
   return (
-    <div className='App'>
+     <div className='App'>
       <div className='header'>
         <h1>RegEx Making</h1>
         <h2>Test your skills to create regex based on descriptions</h2>
-        <h3>Number of cards: {total}</h3>
+        <h3>Card {flashcardNo + 1} of {total + 1}</h3>
       </div>
-      <div className='flashcards' onClick={flipcard} id={cards[flashcardNo].difficulty.toString()}>
+ 
+      <div
+        className={`flashcards ${feedback ? `flashcards--${feedback}` : ''}`}
+        onClick={handleCardClick}
+        id={cards[flashcardNo].difficulty.toString()}
+      >
         <p>{flipped ? cards[flashcardNo].answer.toString() : cards[flashcardNo].prompt}</p>
       </div>
+ 
+      <div className='guessArea'>
+        <input
+          type='text'
+          className={`guessInput${feedback ? ` guessInput--${feedback}` : ''}`}
+          placeholder='Enter your regex guess (e.g. /[01]/)'
+          value={guess}
+          onChange={(e) => { setGuess(e.target.value); setFeedback(null) }}
+          onKeyDown={handleKeyDown}
+          aria-label='Regex guess input'
+        />
+        <button
+          className='submitBtn'
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
+ 
       <div className='buttonBar'>
-        <button id='leftButton' onClick={backCard}>←</button>
-        <button id='rightButton' onClick={nextcard}>→</button>
+        <button
+          className='navBtn'
+          onClick={backCard}
+          disabled={isFirst}
+          aria-label='Previous card'
+          title={isFirst ? 'Already at the first card' : 'Previous card'}
+        >
+          ←
+        </button>
+        <button
+          className='navBtn'
+          onClick={nextcard}
+          disabled={isLast}
+          aria-label='Next card'
+          title={isLast ? 'Already at the last card' : 'Next card'}
+        >
+          →
+        </button>
       </div>
     </div>
   )

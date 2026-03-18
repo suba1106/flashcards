@@ -71,6 +71,54 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+.guessArea {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.guessInput::placeholder {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.9em;
+}
+ 
+.guessInput:focus {
+  border-color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.18);
+}
+ 
+.guessInput--correct {
+  border-color: rgba(39, 174, 96, 0.9);
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
+}
+ 
+.guessInput--incorrect {
+  border-color: rgba(231, 76, 60, 0.9);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+}
+
+.submitBtn {
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 0.55em 1.3em;
+  font-size: 1.1em;
+  font-weight: 700;
+  font-family: inherit;
+  background-color: #674580;
+  color: rgba(255,255,255,0.92);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+ 
+.submitBtn:hover {
+  background-color: #7d56a0;
+  border-color: #fff;
+}
+ 
+.submitBtn:active {
+  transform: scale(0.96);
+}
 
 button {
   border-radius: 8px;
@@ -84,12 +132,21 @@ button {
   transition: border-color 0.25s;
   gap: 1rem;
 }
-button:hover {
+
+button:hover:not(:disabled) {
   border-color: #646cff;
 }
+ 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+ 
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background-color: #4a3560;
+  border-color: rgba(255,255,255,0.1);
 }
 
 .App {
